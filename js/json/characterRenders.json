@@ -1,0 +1,24 @@
+{
+    "renders": [
+        {"render": "../img/character-renders/void-render.png"},
+        {"render": "../img/character-renders/lilith-render.png"},
+        {"render": "../img/character-renders/kite-render.png"},
+        {"render": "../img/character-renders/kitt-render.png"},
+        {"render": "../img/character-renders/paige-render.png"},
+        {"render": "../img/character-renders/ruby-render.png"}
+    ],
+    "attackIcons": [
+        {"icon": "../img/attack-icons/railgun_icon.png"},
+        {"icon": "../img/attack-icons/designated_target_icon.png"},
+        {"icon": "../img/attack-icons/riposte_icon.png"},
+        {"icon": "../img/attack-icons/designated_target_icon.png"}
+    ],
+    "evolve_icons":[
+        {"mark": "../img/evolve-marks/void-mark.png"},
+        {"mark": "../img/evolve-marks/lilith-mark.png"},
+        {"mark": "../img/evolve-marks/kite-mark.png"},
+        {"mark": "../img/evolve-marks/kitt-mark.png"},
+        {"mark": "../img/evolve-marks/paige-mark.png"},
+        {"mark": "../img/evolve-marks/ruby-mark.png"}
+    ]
+}

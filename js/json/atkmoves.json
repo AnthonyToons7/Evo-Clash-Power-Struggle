@@ -1,0 +1,67 @@
+{
+    "atks_title_void": [
+        {"void_moves_title": "Railgun"},
+        {"void_moves_title": "Designated-target"},
+        {"void_moves_title": "Riposte"}
+    ],
+    "atks_desc_void": [
+        {"void_moves_desc": "[1] Shoot out a coin with high speed and great damage, has piercing properties and great range. [2] Applies shut-off for one turn."},
+        {"void_moves_desc": "[1] One, high damaged attack with a low chance of bleed, but medium chance of burning. [2] Small chance to tipper."},
+        {"void_moves_desc": "[1] Skips your turn. [2] When an opponent (melee) attacks you, you counterattack with high damage. Last one turn. [3] Charges your sword with electricity, granting a chance to inflict shock."}
+    ],
+
+    "atks_title_lilith": [
+        {"lilith_moves_title": "Quick slash"},
+        {"lilith_moves_title": "Behind you"},
+        {"lilith_moves_title": "Double up"}
+    ],
+    "atks_desc_lilith": [
+        {"lilith_moves_desc": "Quickly slashes an opponent for medium damage. Might inflict haunt."},
+        {"lilith_moves_desc": "Teleports behind an opponent, slashing them, you turn invisible for one turn. Unusable on your next turn after this."},
+        {"lilith_moves_desc": "Use two moves right now but skip your next turn."}
+    ],
+
+    "atks_title_kite": [
+        {"kite_moves_title": "Quick stab"},
+        {"kite_moves_title": "Well and protected"},
+        {"kite_moves_title": "Healing"}
+    ],
+    "atks_desc_kite": [
+        {"kite_moves_desc": "Quickly stabs one opponent, low chance for bleeding."},
+        {"kite_moves_desc": "Give you or an ally a barrier for one turn. Cooldown of one turn"},
+        {"kite_moves_desc": "Pretty standard. Heals you or your ally for a decent amount."}
+    ],
+
+    "atks_title_kitt": [
+        {"kitt_moves_title": "Heavy wrench"},
+        {"kitt_moves_title": "Shock punch"},
+        {"kitt_moves_title": "Sentry build"}
+    ],
+    "atks_desc_kitt": [
+        {"kitt_moves_desc": "Smack your opponent with a wrench. Small chance of inflicting stun."},
+        {"kitt_moves_desc": "Punch your opponents one tile back. Decent chance to inflict shock."},
+        {"kitt_moves_desc": "Builds a sentry with weak health and decent stats but can provide nice effects in battle. Lasts four turns."}
+    ],
+
+    "atks_title_paige": [
+        {"paige_moves_title": "Shock spear"},
+        {"paige_moves_title": "Saw traps"},
+        {"paige_moves_title": "Exakin control"}
+    ],
+    "atks_desc_paige": [
+        {"paige_moves_desc": "A short ranged weapon which stabs your opponent, then electrocuting them."},
+        {"paige_moves_desc": "Sets three saw traps on the stage (1x3). It inflicts damage and bleeding on impact, and bleeding time extends whenever someone walks over them. Allies are immune to these blades."},
+        {"paige_moves_desc": "Paige grabs a nearby obstacle from a distance using an unknown power, and throws it at an opponent. Depending on the obstacle thrown, different effects apply"}
+    ],
+
+    "atks_title_ruby": [
+        {"ruby_moves_title": "Flame slash"},
+        {"ruby_moves_title": "Flamethrower"},
+        {"ruby_moves_title": "Firewall"}
+    ],
+    "atks_desc_ruby": [
+        {"ruby_moves_desc": "..."},
+        {"ruby_moves_desc": "..."},
+        {"ruby_moves_desc": "..."}
+    ]
+}

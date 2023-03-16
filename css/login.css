@@ -1,0 +1,88 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+body {
+    background-color: rgb(50, 50, 50);
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+form {
+    height: 350px;
+}
+form, .login, #a {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: roboto;
+}
+.login {
+    height: 100%;
+    justify-content: space-around;
+}
+label {
+    padding: 10px 0 10px 0;
+    margin: 10px 0 10px 0;
+}
+input[type="text"], input[type="password"], input[type="email"]{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: unset;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px;
+    font-family: roboto;
+}
+input:focus {
+    outline: none;
+}
+input[type="submit"]{
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+    border: none;
+    color: white;
+    font-family: roboto;
+    background-color: #7294b5;
+}
+input[type="submit"]:hover {
+    cursor: pointer;
+}
+.login__container {
+    background-color: white;
+    padding: 10px;
+    width: 400px;
+    height: 600px;
+}
+.login a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 1000;
+    font-size: 18px;
+    padding: 5px;
+}
+#update-back {
+    color: rgb(0, 89, 255);
+}
+@font-face {
+    font-family: garja;
+    src: url(GajrajOne-Regular.ttf);
+}
+@font-face {
+    font-family: roboto;
+    src: url(Roboto-Regular.ttf);
+}
+h1 {
+    font-size: 30px;
+    padding: 10px;
+    /* font-weight: 600; */
+    font-family: garja;
+}

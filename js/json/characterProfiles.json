@@ -1,0 +1,215 @@
+{
+"void":[
+    {"void_info": "Void"},
+    {"void_info": "Void 'Vyomi' Starnyte"},
+    {"void_info": "17"},
+    {"void_info": "Black (natural) / Purple (dyed)"},
+    {"void_info": "Human"},
+
+    {"void_info": "'This mark is a curse. It grants me acces to great power, but is it really worth losing everyone you love?'"},
+
+    {"void_info": "Railgun"},
+    {"void_info": "[1] Shoot out a coin with high speed and great damage, has piercing properties and great range. [2] Applies shut-off for one turn."},
+    {"void_info": "Designated-target"},
+    {"void_info": "[1] One, high damaged attack with a low chance of bleed, but medium chance of burning. [2] Small chance to tipper."},
+    {"void_info": "Riposte"},
+    {"void_info": "[1] Skips your turn. [2] When an opponent (melee) attacks you, you counterattack with high damage. Last one turn. [3] Charges your sword with electricity, granting a chance to inflict shock."}
+],
+"fatedVoid":[
+    {"fated_info": "Void"},
+    {"fated_info": "Fated Void"},
+    {"fated_info": ""},
+    {"fated_info": "Blue"},
+    {"fated_info": "Human"},
+
+    {"fated_info": "'A blade in my hand, I charge towards the fray. With every step, I hear the enemy's dismay. My heart beats strong, my spirit unbreakable. For I am a warrior, fearless and unshakable. My sword will guide me to victory or to my grave.'"},
+
+    {"fated_info": "Blackout"},
+    {"fated_info": "[1] Makes the entire stage dark, only making the UI visible. Lasts one turn. [2] All team members gain a small ATK boost."},
+    {"fated_info": "Elemental duelist"},
+    {"fated_info": "[1] Ignites blade with a high voltage, giving it a medium chance to shock. [2] Ignites blade in flames, giving it a medium chance to burn. Cooldown is one turn"},
+    {"fated_info": "Ready and steady"},
+    {"fated_info": "[1] Attacks an opponent with a high chance of bleeding. [2] Get into riposte position."}
+],
+"bloodVoid":[
+    {"bloodb_info": "Void"},
+    {"bloodb_info": "Bloodbound beast"},
+    {"bloodb_info": ""},
+    {"bloodb_info": "Black / Red"},
+    {"bloodb_info": "Human / Dragon"},
+
+    {"bloodb_info": "'I can feel the darkness creeping in, consuming me bit by bit. Please, don't make the same mistakes as me. It's not worth it. The power may seem tempting, but it's a trap. I beg of you, turn away before it's too late.'"},
+
+    {"bloodb_info": "Dragonic breath"},
+    {"bloodb_info": "[1] Delivers high damaging, piercing blows of fire (2x1). Chance to inflict burn. [2] 95% chance to break Anti-True-Creature weapons. [3] Lowers opponents attack by 1% for every lost point of HP lost by this move. (min. 15%)."},
+    {"bloodb_info": "Bloodbound lashout"},
+    {"bloodb_info": "[1] Strikes a near opponent for heavy damage, with a high chance for bleeding. [2] Guaranteed to inflict rage on the opponent."},
+    {"bloodb_info": "Bound by blood"},
+    {"bloodb_info": "[1] Sets up a timer on Void, and one character on the opponent's side for 3 turns. Once that timer runs out, both characters die. Effect is negated if either target dies earlier. [2] Boosts DEF by 50%."}
+],
+
+"lilith":[
+    {"lilith_info": "Lilith"},
+    {"lilith_info": "Lilithy"},
+    {"lilith_info": "7"},
+    {"lilith_info": "White"},
+    {"lilith_info": "Demon"},
+
+    {"lilith_info": "'What... am I doing here...?'"},
+
+    {"lilith_info": "Quick slash"},
+    {"lilith_info": "Quickly slashes an opponent for medium damage. Might inflict haunt."},
+    {"lilith_info": "Behind you"},
+    {"lilith_info": "Teleports behind an opponent, slashing them, you turn invisible for one turn. Unusable on your next turn after this."},
+    {"lilith_info": "Double up"},
+    {"lilith_info": "Use two moves right now but skip your next turn."}
+],
+"reaperLilith":[
+    {"lilith_info": "Lilith"},
+    {"lilith_info": "Lilithy"},
+    {"lilith_info": "7"},
+    {"lilith_info": "White"},
+    {"lilith_info": "Demon"},
+
+    {"lilith_info": "'What... am I doing here...?'"},
+
+    {"lilith_info": "Quick slash"},
+    {"lilith_info": "Quickly slashes an opponent for medium damage. Might inflict haunt."},
+    {"lilith_info": "Behind you"},
+    {"lilith_info": "Teleports behind an opponent, slashing them, you turn invisible for one turn. Unusable on your next turn after this."},
+    {"lilith_info": "Double up"},
+    {"lilith_info": "Use two moves right now but skip your next turn."}
+],
+
+"kite":[
+    {"kite_info": "Kite"},
+    {"kite_info": "Kite"},
+    {"kite_info": "16"},
+    {"kite_info": "White"},
+    {"kite_info": "(Fallen) Angel"},
+
+    {"kite_info": "'I've been abandoned a long time ago. Now I've risen as a powerful servant of God.'"},
+
+    {"kite_info": "Quick stab"},
+    {"kite_info": "Quickly stabs one opponent, low chance for bleeding."},
+    {"kite_info": "Well and protected"},
+    {"kite_info": "Gives Kite or an ally a barrier for one turn. Cooldown of one turn"},
+    {"kite_info": "Mending"},
+    {"kite_info": "Heals you or your ally for a decent amount."}
+],
+"angelKite":[
+    {"lilith_info": "Lilith"},
+    {"lilith_info": "Lilithy"},
+    {"lilith_info": "7"},
+    {"lilith_info": "White"},
+    {"lilith_info": "Demon"},
+
+    {"lilith_info": "'What... am I doing here...?'"},
+
+    {"lilith_info": "Quick slash"},
+    {"lilith_info": "Quickly slashes an opponent for medium damage. Might inflict haunt."},
+    {"lilith_info": "Behind you"},
+    {"lilith_info": "Teleports behind an opponent, slashing them, you turn invisible for one turn. Unusable on your next turn after this."},
+    {"lilith_info": "Double up"},
+    {"lilith_info": "Use two moves right now but skip your next turn."}
+],
+
+"kitt":[
+    {"kitt_info": "Kitt"},
+    {"kitt_info": "Akittsu"},
+    {"kitt_info": "17"},
+    {"kitt_info": "Light purple"},
+    {"kitt_info": "Human"},
+
+    {"kitt_info": "'If it ain't broke... Fix it anyway.'"},
+
+    {"kitt_info": "Heavy wrench"},
+    {"kitt_info": "Smack your opponent with a wrench. Small chance of inflicting stun."},
+    {"kitt_info": "Shock punch"},
+    {"kitt_info": "Punch your opponent one tile back. Decent chance to inflict shock."},
+    {"kitt_info": "Sentry build"},
+    {"kitt_info": "Builds a sentry with weak health and decent stats but can provide nice effects in battle. Lasts four turns."}
+],
+"engiKitt":[
+    {"engiKitt_info": "Lilith"},
+    {"engiKitt_info": "Lilithy"},
+    {"engiKitt_info": "7"},
+    {"engiKitt_info": "White"},
+    {"engiKitt_info": "Demon"},
+
+    {"engiKitt_info": "'What... am I doing here...?'"},
+
+    {"engiKitt_info": "Quick slash"},
+    {"engiKitt_info": "Quickly slashes an opponent for medium damage. Might inflict haunt."},
+    {"engiKitt_info": "Behind you"},
+    {"engiKitt_info": "Teleports behind an opponent, slashing them, you turn invisible for one turn. Unusable on your next turn after this."},
+    {"engiKitt_info": "Double up"},
+    {"engiKitt_info": "Use two moves right now but skip your next turn."}
+],
+
+"paige":[
+    {"paige_info": "Paige"},
+    {"paige_info": "Paige"},
+    {"paige_info": "18"},
+    {"paige_info": "Red"},
+    {"paige_info": "Human"},
+
+    {"paige_info": "'...'"},
+
+    {"paige_info": "Power nail"},
+    {"paige_info": "Fire a nail with your nail gun, piercing through opponents from a distance. "},
+    {"paige_info": "Saw traps"},
+    {"paige_info": "Sets three saw traps on the stage (1x3). It inflicts damage and bleeding on impact, and bleeding time extends whenever someone walks over them. Allies are immune to these blades."},
+    {"paige_info": "Exakin control"},
+    {"paige_info": "Paige has a small selection of different parts she can throw. Each different part has different effects and damage values."}
+],
+"mechPaige":[
+    {"lilith_info": "Lilith"},
+    {"lilith_info": "Lilithy"},
+    {"lilith_info": "7"},
+    {"lilith_info": "White"},
+    {"lilith_info": "Demon"},
+
+    {"lilith_info": "'What... am I doing here...?'"},
+
+    {"lilith_info": "Quick slash"},
+    {"lilith_info": "Quickly slashes an opponent for medium damage. Might inflict haunt."},
+    {"lilith_info": "Behind you"},
+    {"lilith_info": "Teleports behind an opponent, slashing them, you turn invisible for one turn. Unusable on your next turn after this."},
+    {"lilith_info": "Double up"},
+    {"lilith_info": "Use two moves right now but skip your next turn."}
+],
+
+"ruby":[
+    {"ruby_info": "Ruby"},
+    {"ruby_info": "Ruby Carbuncle"},
+    {"ruby_info": "17"},
+    {"ruby_info": "Blue"},
+    {"ruby_info": "Human"},
+
+    {"ruby_info": "'Fuck. You.'"},
+
+    {"ruby_info": "Flame slash"},
+    {"ruby_info": "[]"},
+    {"ruby_info": "Firewall"},
+    {"ruby_info": "[]"},
+    {"ruby_info": "Flamethrower"},
+    {"ruby_info": "[]"}
+],
+"beastRuby":[
+    {"lilith_info": "Lilith"},
+    {"lilith_info": "Lilithy"},
+    {"lilith_info": "7"},
+    {"lilith_info": "White"},
+    {"lilith_info": "Demon"},
+
+    {"lilith_info": "'What... am I doing here...?'"},
+
+    {"lilith_info": "Quick slash"},
+    {"lilith_info": "Quickly slashes an opponent for medium damage. Might inflict haunt."},
+    {"lilith_info": "Behind you"},
+    {"lilith_info": "Teleports behind an opponent, slashing them, you turn invisible for one turn. Unusable on your next turn after this."},
+    {"lilith_info": "Double up"},
+    {"lilith_info": "Use two moves right now but skip your next turn."}
+]
+}

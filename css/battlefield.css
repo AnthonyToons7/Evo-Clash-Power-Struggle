@@ -1,0 +1,421 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: roboto;
+    src: url(Roboto-Regular.ttf);
+}
+html {
+    overflow: hidden;
+}
+body.screenshake{
+    animation: screenShake .15s linear 3;
+}
+@keyframes screenShake {
+    10%, 90% { transform: translate(-4px, 2px) rotate(-0.5deg); }
+    20%, 70%, 100% { transform: translate(3px, -100px) rotate(-1.5deg); }
+    30% { transform: translate(-2px, 0px) rotate(-1.5deg); }
+    40% { transform: translate(30px, -4px) rotate(1.5deg); }
+    50% { transform: translate(4px, -2px) rotate(2.5deg); }
+    60% { transform: translate(-2px, 5px) rotate(0.5deg); }
+    80% { transform: translate(-50px, -10px) rotate(0.5deg); }
+}  
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(59, 59, 59); */
+    background-color: #171924;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#grid-container {
+    perspective: 200px;
+}
+div#grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 267px;
+    width: 660px;
+    padding: 4px;
+    perspective: 200px;
+    transform: rotateX(34deg);
+    transform-style: preserve-3d;
+}
+.tile {
+    /* border: 1px solid #567fa1; */
+    border: 1px solid #57a5b7;
+    box-shadow: 0 0 5px 1px #00eeff;
+    height: 65px;
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    transform-style: preserve-3d;
+}
+.tile:hover {
+    cursor: pointer;
+}
+.sprites {
+    pointer-events: none;
+    transform: rotateX(-17deg) translateZ(45px) translateX(10px) translateY(-12px);
+    height: 300px;
+    width: 300px;
+    transition: all 2s;
+}
+.player-2-sprites {
+    transform: rotateX(-17deg) translateZ(45px) translateX(-15px) translateY(-12px) scaleX(1);
+}
+.glow {
+    background-color: #285ea9;
+    animation: glowMovement 1.5s linear infinite;
+}
+@keyframes glowMovement {
+    0%{box-shadow: inset 5px 0 25px #17c8e8, inset -5px 0 15px #17c8e8; opacity: 0.75;}
+    25%{box-shadow: inset 5px 0 45px #17c8e8, inset -5px 0 35px #17c8e8; opacity: 0.5;}
+    75%{box-shadow: inset 5px 0 25px #17c8e8, inset -5px 0 15px #17c8e8; opacity: 0.75;}
+    100%{box-shadow: inset 5px 0 15px #17c8e8, inset -5px 0 5px #17c8e8; opacity: 0.25;}
+}
+.sprites {
+    animation: none;
+}
+#moves-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 550px;
+    height: 240px;
+}
+#attack-moves-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 100%;
+    /* height: 300px; */
+}
+#description-title {
+    width: 100%;
+    font-size: 20px;
+}
+.attack-movess, .attack-moves {
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid #11016e;
+    background: linear-gradient(15deg, #3d849f, #2056a3);
+    height: 120px;
+    width: 100px;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.25s all;
+}
+#moves-4 {
+    opacity: 1;
+}
+.attack-moves > img {
+    width: 100%;
+    height: 84%;
+}
+.attack-moves>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: #17c8e8 1px solid;
+    width: 100%;
+}
+#moves-evolve {
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+.attack-moves.selected {
+    transform: translateY(-30px);
+}
+#turn-change {
+    text-align: center;
+    position: absolute;
+    z-index: 99;
+    /* background: linear-gradient(15deg, #e76969, #a92626, #ad3737); */
+    background: linear-gradient(15deg, #69b3e7, #2633a9, #3762ad);
+    /* transform: skew(15deg) translateX(-1000px); */
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
+    border: 2px solid white;
+    width: 800px;
+    height: 100px;
+    animation: Go .75s cubic-bezier(0, 0.93, 1,-0.01) forwards;
+}
+@keyframes Go {
+    from {
+        transform: skew(15deg) translateX(-1100px);
+    }
+    to {
+        transform: skew(15deg) translateX(1100px);
+    }
+}
+#turn-change h1 {
+    color: white;
+    font-size: 30px;
+}
+#turn-change p {
+    color: white;
+    padding-left: 50px;
+    font-size: 20px;
+}
+.tile.ATKGlow {
+    animation: glowAtk 1.5s forwards infinite;
+}
+@keyframes glowAtk {
+    0%{box-shadow: inset 5px 0 25px #e81717, inset -5px 0 15px #e81717; opacity: 1;}
+    25%{box-shadow: inset 5px 0 45px #e81717, inset -5px 0 35px #e81717; opacity: 0.75;}
+    75%{box-shadow: inset 5px 0 25px #e81717, inset -5px 0 15px #e81717; opacity: 1;}
+    100%{box-shadow: inset 5px 0 15px #e81717, inset -5px 0 5px #e81717; opacity: 0.5;}
+}
+
+.spinToRight {
+    transition: none;
+    transform: scaleX(-1) rotateX(-17deg) translateZ(45px) translateX(-15px) translateY(-12px);
+}
+
+.spinToLeft {
+    transition: none;
+    transform: scaleX(-1) rotateX(-17deg) translateZ(45px) translateX(24px) translateY(-12px);
+}
+#turn-counter {
+    position: absolute;
+    bottom: 20px;
+    right: 50px;
+    display: flex;
+}
+.character-turn-box {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 130px;
+    width: 85px;
+    border: 2px solid blue;
+    background: linear-gradient(#2323ad, #333377);
+    transform: skew(15deg);
+    transition: all 2s;
+}
+#character-turn-2, #character-turn-4 {
+    background: linear-gradient(#ad2323, #773333);
+    border: 2px solid rgb(61, 22, 22);
+}
+.renderBoxes {
+    background-size: cover;
+    background-position: center;
+    height: 70%;
+    width: 100%;
+}
+#character-hp-small-1,
+#character-hp-small-2,
+#character-hp-small-3, 
+#character-hp-small-4 
+{
+    background-repeat: no-repeat;
+    width: 100%;
+    border-top: 5px solid yellow;
+    box-shadow: #000000 0 0 1px 1px;
+}
+.renderBoxes {
+    width: 100%;
+    transform: skew(-15deg);
+}
+#atk-moves-description {
+    opacity: 0;
+    transition: .2s all;
+    padding: 10px;
+    height: 90px;
+    background-color: #0e054c82;
+    box-shadow: inset 100px 0px 100px -50px #538724, inset -100px 0px 100px -50px #2e421e, 0px 0px 15px 1px #24a52f;
+    color: #fff;
+    pointer-events: none;
+}
+#description-title > h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #ebff52;
+    -webkit-text-stroke: #010101 2px;
+    font-size: 45px;
+    font-weight: 1000;
+    letter-spacing: -4px;
+    font-style: italic;
+    transform: translateY(-40px);
+}
+#description-desc p {
+    font-size: 13px;
+    font-family: roboto;
+    transform: translateY(-30px);
+    font-weight: 500;
+    color: #fff;
+    text-shadow: black 0px 4px 4px;
+}
+div#void-evo-container {
+    display: none;
+    /* display: flex; */
+    justify-content: space-around;
+    border: 1px solid black;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(#2323ad, #333377);
+}
+div#void-evo-container > div {
+    height: 100px;
+    width: 50px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 10px;
+}
+#bloodb {
+    background-image: url(../img/evolve-marks/bloodboundBeast-logo.png);
+    margin-left: 20px;
+    
+} #fated {
+    background-image: url(../img/evolve-marks/fatedKnight-logo.png);
+    margin-right: 20px;
+}
+div#void-evo-container > div:hover {
+    filter: drop-shadow(#00eeff 0 0 20px);
+}
+
+#small-hp-container {
+    position: absolute;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: all .5s;
+    pointer-events: none;
+}
+#hp-container {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+#hp-bar {
+    display: flex;
+    background-color: #2f2f2f;
+    height: 10px;
+    width: 150px;
+}
+#hp-bar-filler{
+    height: 100%;
+    width: 100%;
+    background-color: yellow;
+    transition: all .25s;
+}
+#hp-bar-filler-damage{
+    height: 100%;
+    width: 0%;
+    background-color: rgb(255, 0, 0);
+    transition: all .25s;
+}
+#hp-bar-filler-heal {
+    height: 100%;
+    width: 0%;
+    background-color: rgb(0, 255, 26);
+    transition: all .25s;
+}
+#hp-number p {
+    color: #fff;
+    padding-left: 5px;
+}
+.dangerHP {
+    animation: lowHP 1.5s forwards infinite;
+}
+@keyframes lowHP {
+    0%{box-shadow: inset 5px 0 25px #e81717, inset -5px 0 15px #e81717;}
+    25%{box-shadow: inset 5px 0 45px #e81717, inset -5px 0 35px #e81717;}
+    75%{box-shadow: inset 5px 0 25px #e81717, inset -5px 0 15px #e81717;}
+    100%{box-shadow: inset 5px 0 15px #e81717, inset -5px 0 5px #e81717;}
+}
+.deadCharacter {
+    opacity: .5;
+    
+}
+@media screen and (min-width: 1440px) {
+    div#grid {
+        width: 745px;
+        height: 265px;
+    }
+    .tile {
+        height: 70px;
+        width: 105px;
+    }
+    #turn-change {
+        transform: skew(15deg) translateX(-2000px);
+        animation: Go 1.5s cubic-bezier(0, 0.93, 1,-0.01) forwards;
+    }
+    @keyframes Go {
+        from {
+            transform: skew(15deg) translateX(-2000px);
+        }
+        to {
+            transform: skew(15deg) translateX(2000px);
+        }
+    }
+    .sprites {
+        height: 315px;
+        width: 315px;
+    }
+    #description-desc p {
+        font-size: 17px;
+    }
+    #atk-moves-description {
+        height: 140px;
+    }
+    #moves-container {
+        height: 270px;
+    }
+    .character-turn-box {
+        height: 155px;
+        width: 90px;
+    }
+}
+@media screen and (min-width:1800px) {
+    div#grid {
+        width: 1000px;
+    }
+    .tile {
+        height: 85px;
+        width: 130px;
+    }
+    #turn-change {
+        transform: skew(15deg) translateX(-2000px);
+        animation: Go 1.5s cubic-bezier(0, 0.93, 1,-0.01) forwards;
+    }
+    @keyframes Go {
+        from {
+            transform: skew(15deg) translateX(-2000px);
+        }
+        to {
+            transform: skew(15deg) translateX(2000px);
+        }
+    }
+    .sprites {
+        height: 340px;
+        width: 340px;
+    }
+}
