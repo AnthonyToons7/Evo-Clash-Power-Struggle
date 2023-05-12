@@ -48,7 +48,7 @@ main, body {
     align-content: flex-end;
     width: 100vw;
     height: 100vh;
-    padding: 50px 0 70px 0;
+    padding: 250px 0 70px 0;
     overflow-y: scroll;
     overflow-x: hidden;
     /* overflow: hidden; */
@@ -101,11 +101,14 @@ main, body {
     transform: translateX(240px);
     background-color: rgb(97 34 108);
 } #arena-box, #create-room-box {
-    width: 1000px;
+    width: 1100px;
     background: linear-gradient(#bf2020, #ff4141);
 } #character-box, #join-room-box {
-    width: 900px;
+    width: 1000px;
     background: linear-gradient(#1b7e0c, #42b630);
+}#tutorial-box {
+    width: 900px;
+    background: linear-gradient(#48efc5, #39be90);
 } #update-box, #back-box{
     width: 800px;
     background: linear-gradient(#5b879b, #8cb0c2);

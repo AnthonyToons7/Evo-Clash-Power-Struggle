@@ -18,7 +18,7 @@
     $result = $mysqli_stmt = $mysqli->query($qry);
     $i = 1;
     while ($row = $result -> fetch_assoc()) { 
-        if ($i < 7){
+        if ($i < 5){
             $content .= "<div class='character-selection-box'>";
             $content .= "<input type='checkbox' name='characterCheckbox[]' value='$row[CHARACTERS_ID]' class='checkbox' id='$row[CHARACTER_NAME]'/>";
             $content .= "<label for='$row[CHARACTER_NAME]'>" .  $row['CHARACTER_NAME'] . "</label>";

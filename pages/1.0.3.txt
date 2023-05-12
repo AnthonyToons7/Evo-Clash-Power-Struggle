@@ -1,0 +1,25 @@
+Ruby:
+"Firewall" range 4 -> 3
+"Firewall" damage 11 -> 15
+DEF 9 -> 5
+ATK 17 -> 15
+
+Void:
+HP 93 -> 95
+ATK 18 -> 19
+DEF 8 -> 10
+
+Lilith: 
+"Quick slash" damage 15 -> 20
+"Behind you" range 5 -> 4
+"Behind you" damage 10 -> 12
+ATK 16 -> 17
+DEF 11 -> 10
+
+Kitt:
+HP 94 -> 100
+ATK 14 -> 16
+DEF 14 -> 18
+"Wrench Clap" damage 14 -> 20
+"Shock punch" damage 14 -> 18
+"Sentry build" damage 20 -> 22

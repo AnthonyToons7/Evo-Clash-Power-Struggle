@@ -70,7 +70,7 @@ if(isset($_GET["error"])){
                     <img src="" alt="">
                     <div>4</div>
                 </div>
-                <div id="moves-4" class="attack-moves" onclick="turnReset();" style="font-size:20px; font-weight:600;">
+                <div id="moves-4" class="attack-moves" style="font-size:20px; font-weight:600;" onclick="turnReset();">
                     <div>Start</div>
                 </div>
             </div>
@@ -114,6 +114,10 @@ if(isset($_GET["error"])){
             <div></div>
         </div>
     </main>
+    <div id="loading-overlay">
+        <h1>Loading...</h1>
+    </div>
+    <div id='attacking-overlay'><div id='attacking-image'></div></div>
     <script src="../js/game.js"></script>
     <script type="text/javascript" defer>
         document.addEventListener("DOMContentLoaded", function(){
@@ -123,6 +127,10 @@ if(isset($_GET["error"])){
             getCharacters(<?= $_GET["id"] ?>);
             getUserIDs(<?=$_GET["id"]?>);
             setThisPlayer(<?=$_SESSION["USERS_ID"]?>);
+            setNewPlayerID(<?=$_SESSION["USERS_ID"]?>);
+            setTimeout(() => {
+                turnReset('load-in');
+            }, 2000);
         });
     </script>
 </body>

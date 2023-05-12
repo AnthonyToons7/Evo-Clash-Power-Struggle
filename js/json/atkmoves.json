@@ -40,7 +40,7 @@
     "atks_desc_kitt": [
         {"kitt_moves_desc": "Smack your opponent with a wrench. Small chance of inflicting stun."},
         {"kitt_moves_desc": "Punch your opponents one tile back. Decent chance to inflict shock."},
-        {"kitt_moves_desc": "Builds a sentry with weak health and decent stats but can provide nice effects in battle. Lasts four turns."}
+        {"kitt_moves_desc": "Builds a sentry that unleashes a strong plasma attack with stun. Cooldown of 1 turn."}
     ],
 
     "atks_title_paige": [
@@ -60,8 +60,8 @@
         {"ruby_moves_title": "Firewall"}
     ],
     "atks_desc_ruby": [
-        {"ruby_moves_desc": "..."},
-        {"ruby_moves_desc": "..."},
-        {"ruby_moves_desc": "..."}
+        {"ruby_moves_desc": "Powerful slash of fire. Medium chance to bleed & burn."},
+        {"ruby_moves_desc": "Weaker burst of fire, but with high chance of burning."},
+        {"ruby_moves_desc": "Powerful burst of fire. No burning effects."}
     ]
 }

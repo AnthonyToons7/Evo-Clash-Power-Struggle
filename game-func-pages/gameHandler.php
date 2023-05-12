@@ -28,8 +28,8 @@ if ($playerID===$row['PLAYER_1_USER_ID']) {
         $result = $mysqli_stmt->get_result();
     }
     
-    $posX = 0;
-    $posY = 0;
+    $posX = 1;
+    $posY = 1;
     $NULLcharacter = NULL;
     $qry = "SELECT CHARACTER_HP, CHARACTER_ATK, CHARACTER_DEF, CHARACTER_COOLDOWN FROM characters WHERE CHARACTERS_ID = ?;";
     $mysqli_stmt = $mysqli->prepare($qry);
@@ -117,25 +117,25 @@ if ($playerID===$row['PLAYER_1_USER_ID']) {
     $gameID = $result->fetch_assoc();    
 
 
-    // 
-    // header("Location: http://localhost/pages/battlefield.php?id=" . $roomID);
+    
+    header("Location: http://localhost/pages/battlefield.php?id=" . $roomID);
 
 
 
 
 
-function guidv4($data = null) {
-    // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
-    $data = $data ?? random_bytes(16);
-    assert(strlen($data) == 16);
+// function guidv4($data = null) {
+//     // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
+//     $data = $data ?? random_bytes(16);
+//     assert(strlen($data) == 16);
 
-    // Set version to 0100
-    $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
-    // Set bits 6-7 to 10
-    $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+//     // Set version to 0100
+//     $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+//     // Set bits 6-7 to 10
+//     $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
 
-    // Output the 36 character UUID.
-    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
-}
-$myuuid = '<a href="http://localhost?' . guidv4() . '">http://localhost/' . guidv4() . '</a>';
-echo $myuuid;
+//     // Output the 36 character UUID.
+//     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+// }
+// $myuuid = '<a href="http://localhost?' . guidv4() . '">http://localhost/' . guidv4() . '</a>';
+// echo $myuuid;

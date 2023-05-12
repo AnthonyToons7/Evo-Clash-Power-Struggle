@@ -53,13 +53,21 @@ body {
     align-items: center;
     border-right: 1px solid rgb(218, 218, 218);
     width: 20%;
-    height: 600px;
+    height: 100%;
     padding: 10px;
 }
 #description-container {
     width: 70%;
-    height: 600px;
+    height: 100%;
     overflow: scroll;
+}
+p {
+    font-family: roboto;
+}
+p span {
+    font-size: 20px;
+    font-weight: 800;
+    padding-bottom: 10px;
 }
 .versions {
     display: flex;
@@ -74,7 +82,7 @@ body {
     padding-left: 10px;
 }
 #updateInfo {
-    padding: 10px;
+    padding: 30px;
 }
 footer {
     padding: 10px;

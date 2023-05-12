@@ -32,6 +32,8 @@ let turnCounter = -1;
 let turnUser1 = true;
 let turnUser2 = false;
 
+let glob;
+
 let currentTurn = 0;
 
 let turnPlayerId;
@@ -66,6 +68,7 @@ let characterMovePlusIndex;
 let id;
 
 // UserID
+let thisPlayerIdNew;
 let thisPlayer;
 let userID;
 let attackType;
@@ -76,27 +79,80 @@ function setRoomID(roomID){
 function setThisPlayer(thisPlayerId){
     thisPlayer = thisPlayerId;
 }
+function setNewPlayerID(asd){
+    thisPlayerIdNew = asd;
+}
 
 const tiles = document.querySelectorAll('div.tile');
 const hpcont = document.querySelector('div#hp-number p');
 const turn_banner = document.getElementById('turn-change');
 const playerChangeTxt = document.getElementById('player-turn-txt');
+const loadOverlay = document.getElementById('loading-overlay');
 let secondaryCharachters;
 
-// Update database every 30 seconds
+// Update database every 5 seconds
 function heartBeat(){
     let interval;
-
     clearInterval(interval);
     // return;
     interval = setInterval(function checkGameState() {
+
+        fetchData(`../game-func-pages/heartbeat.php?id=${id}&request=WINNER&play1char1=${characterPlayers[0]}&play1char2=${characterPlayers[2]}&play2char1=${characterPlayers[1]}&play2char2=${characterPlayers[3]}`).then((data) => {
+            if (data[1]["hp11"]["CHARACTER_HP"] <= 0){
+                document.querySelector("#"+playerCharacters[0]).classList.add("deadCharacter");
+            } if (data[1]["hp12"]["CHARACTER_HP"] <= 0){
+                document.querySelector("#"+playerCharacters[2]).classList.add("deadCharacter");
+            } if (data[1]["hp21"]["CHARACTER_HP"] <= 0){
+                document.querySelector("#"+playerCharacters[1]).classList.add("deadCharacter");
+            } if (data[1]["hp22"]["CHARACTER_HP"] <= 0){
+                document.querySelector("#"+playerCharacters[3]).classList.add("deadCharacter");
+            }
+        
+            if (
+                (data[1]["hp11"]["CHARACTER_HP"] <= 0 && data[1]["hp12"]["CHARACTER_HP"] <=0) ||
+                (data[1]["hp21"]["CHARACTER_HP"] <= 0 && data[1]["hp22"]["CHARACTER_HP"] <=0)
+            ) {
+                if (data[1]["hp11"]["CHARACTER_HP"] <= 0 && data[1]["hp12"]["CHARACTER_HP"] <=0)  {
+                    alert("Well played player 2!");
+                    jQuery.ajax(
+                        {
+                            url: "../game-func-pages/addVictoryPoint.php?player="+userID.player2,
+                            method: 'GET',
+                            
+                            success: function (result){
+                                window.location.href = "http://localhost/pages/startmenu.php";
+                            } 
+                        }
+                    )
+                } else if  (data[1]["hp21"]["CHARACTER_HP"] <= 0 && data[1]["hp22"]["CHARACTER_HP"] <=0){
+                    alert("Well played player 1!");
+                    jQuery.ajax(
+                        {
+                            url: `../game-func-pages/addVictoryPoint.php?player=${userID.player1}`,
+                            method: 'GET',
+                            
+                            success: function (result){
+                                window.location.href = "http://localhost/pages/startmenu.php";
+                            } 
+                        }
+                    )
+                }
+            }
+        }); // Add this closing brace to end the promise.
+        
+
+        loadOverlay.style.display="none";
         fetchData(`../game-func-pages/heartbeat.php?id=${id}&request=GETTURN`).then((data) => {
             currentTurnPlayer = data[0].player;
             thisPlayer = currentTurnPlayer;
             let turn_counter = data[0].turncount_;
             if 
-            ((turn_counter % 2 === 1 && currentTurnPlayer === userID.player2 && turnCounter === 0)
-            || (turn_counter % 2 === 0 && currentTurnPlayer === userID.player1 && turnCounter === 0)
+            (((turn_counter % 2 === 1 && currentTurnPlayer === userID.player2 && turnCounter === 0) &&(
+                hasMoved == false&&
+                hasAttacked == false))
+            || ((turn_counter % 2 === 0 && currentTurnPlayer === userID.player1 && turnCounter === 0) &&(
+                hasMoved == false&&
+                hasAttacked == false))
             ){
                 for(let i = 0; i < turn_counter; i++){
                     turnReset('TIMEFORWARD');
@@ -115,23 +171,21 @@ function heartBeat(){
             turn_banner.style.background = "linear-gradient(15deg, #e76969, #a92626, #ad3737)";
             playerChangeTxt.innerHTML = "Player 2's turn";
         }
-    }, 1000);
+        loadOverlay.style.display="none";
+    }, 5000);
 }
-
 // reset turn
 function turnReset(yep){ 
     turnCounter++;
-    
     if (yep != 'TIMEFORWARD'){
         fetchData(`../game-func-pages/heartbeat.php?id=${id}&request=PUSHTURN`).then((data) => {
             currentTurnPlayer = data[0].player;
             thisPlayer = currentTurnPlayer;
             if (turnCounter === 1) return;
         });
+    } else if (yep === 'load-in'){
+        return checkMoveOptions(turnCharacterCanvas);
     }
-document.querySelectorAll('div.attack-moves').forEach(box => {
-    box.style.opacity=1;
-});
 document.querySelector('div#moves-4 div').innerHTML = "Pass";
     if (turnUser1 && !turnUser2){
         turnUser1 = false;
@@ -150,17 +204,17 @@ document.querySelector('div#moves-4 div').innerHTML = "Pass";
         turnCounter = 0;
     }
     turnCharacterCanvas = document.querySelector(`#${playerCharacters[turnCounter]}`); 
+    if (turnCharacterCanvas.classList.contains("deadCharacter")) turnReset();
     const img = document.querySelectorAll('div.attack-moves img');
-    for (let i = 0; i < img.length; i++){
-        $.get("../js/json/characterRenders.json", json=>{
+    $.get("../js/json/characterRenders.json", json=>{
+        for (let i = 0; i < img.length; i++){
             img[i].src = json.attackIcons[i].icon;
             if (i==3){
                 if (characterPlayers[turnCounter] == -1) img[3].src=json.evolve_icons[characterPlayers[turnCounter]+=1].mark;
                 else img[3].src=json.evolve_icons[characterPlayers[turnCounter]-1].mark
-            }
-        });
-
-    }
+            }     
+        }
+    });
     advanceTurn();
     checkMoveOptions(turnCharacterCanvas);
 }
@@ -203,7 +257,7 @@ function setCharacters(data){
         },
         {
             id: 3,
-            src: '../img/spritesheets/kite-spritesheet.png'
+            src: '../img/spritesheets/ruby-spritesheet.png'
         },
         {
             id: 4,
@@ -215,13 +269,12 @@ function setCharacters(data){
         },
         {
             id: 6,
-            src: '../img/spritesheets/ruby-spritesheet.png'
+            src: '../img/spritesheets/kite-spritesheet.png'
         },
     ];
     const canvasID =['player-1-char-1-sprite', 'player-2-char-1-sprite', 'player-1-char-2-sprite', 'player-2-char-2-sprite'];  
     for (let player in data) {
         for (let i = 0; i < data[player].length; i++) {
-      
           let character = data[player][i][0];
           characterId = data[player][i][1];
           characterPlayers.push(characterId);
@@ -338,7 +391,7 @@ function getSheet(src, player, characterID, canvasID, sheetID){
     ];
 
     if (
-        (sheetID === 6 && player === 'player1')|| 
+        (sheetID === 3 && player === 'player1')|| 
         (sheetID === 4 && player === 'player1')
     ){
         canvas.classList.add("spinToRight")
@@ -377,6 +430,7 @@ function getSheet(src, player, characterID, canvasID, sheetID){
 
 // Game: Start!
 window.addEventListener("DOMContentLoaded", ()=>{
+    loadOverlay.style.display="flex";
     document.querySelector('#grid').addEventListener('click', checkAction, false);
     const turnboxes = document.querySelector('section#turn-counter');
     turnboxes.addEventListener('mouseover', seeHP, false);
@@ -399,7 +453,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
                 hoverUp(2);
                 break;
             case '4':
-                console.log("You're not ready to evolve...");
+                // console.log("You're not ready to evolve...");
                 // hoverUp(4);
                 break;
             case '5':
@@ -522,6 +576,7 @@ function hoverUp(moveNmbr){
                 method: 'GET',
                 
                 success: function (result){
+                    glob = result.attack.name;
                     markDmgZone(result);
                     rotateMarkDmgZone(result);
                 } 
@@ -561,9 +616,11 @@ function rotateMarkDmgZone(range) {
         for (arr in range) {
         for (let i = 0; i < range[arr].xRange; i++) {
             if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)+i+1}"][data-tiley="${parseInt(rangeY)}"]`) && (parseInt(rangeX)+i+1) > rangeX) {
+                document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)+i+1}"][data-tiley="${parseInt(rangeY)}"]`).classList.add('ATKGlow');
             allPlayers.forEach(player=>{
                 if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)+i+1}"][data-tiley="${parseInt(rangeY)}"]`).contains(player)){
                     document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)+i+1}"][data-tiley="${parseInt(rangeY)}"]`).classList.add('ATKTarget');
+                    document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)+i+1}"][data-tiley="${parseInt(rangeY)}"]`).classList.remove(".ATKGlow");
                     seeHP('', player);
                     battle(range.attack.name);
                     const container = document.querySelector('div#small-hp-container');
@@ -571,10 +628,8 @@ function rotateMarkDmgZone(range) {
                     container.style.top = (rect.bottom-250) + 'px';
                     container.style.left = (rect.left+30) + 'px';
                     container.style.opacity = 1;
-                    return;
                 }
             });
-            document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)+i+1}"][data-tiley="${parseInt(rangeY)}"]`).classList.add('ATKGlow');
             }
             else if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`) && (parseInt(rangeX)-i-1) > rangeX) {
             document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`).classList.add('ATKGlow');
@@ -587,9 +642,11 @@ function rotateMarkDmgZone(range) {
         for (arr in range) {
         for (let i = 0; i < range[arr].xRange; i++) {
             if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)+i+1}"]`)) {
+                document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)+i+1}"]`).classList.add('ATKGlow');
                 allPlayers.forEach(player=>{
                     if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)+i+1}"]`).contains(player)){
                         document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)+i+1}"]`).classList.add('ATKTarget');
+                        document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)+i+1}"]`).classList.remove('ATKGlow');
                         seeHP('', player);
                         battle(range.attack.name);
                         const container = document.querySelector('div#small-hp-container');
@@ -597,10 +654,8 @@ function rotateMarkDmgZone(range) {
                         container.style.top = (rect.bottom-250) + 'px';
                         container.style.left = (rect.left+30) + 'px';
                         container.style.opacity = 1;
-                        return;
                     }
                 });
-                document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)+i+1}"]`).classList.add('ATKGlow');
             }
             else if(document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)-i-1}"]`) && (parseInt(rangeY)-i-1) > rangeY){
                 document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)-i-1}"]`).classList.add('ATKGlow');
@@ -612,10 +667,14 @@ function rotateMarkDmgZone(range) {
     case 2: // Left direction
         for (arr in range) {
         for (let i = 0; i < range[arr].xRange; i++) {
-            if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`)) {
+            if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`) )
+            // && (parseInt(rangeX)-i-1) < rangeX) 
+            {
+            document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`).classList.add('ATKGlow');
             allPlayers.forEach(player=>{
                 if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`).contains(player)){
                     document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`).classList.add('ATKTarget');
+                    document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`).classList.remove('ATKGlow');
                     seeHP('', player);
                     battle(range.attack.name);
                     const container = document.querySelector('div#small-hp-container');
@@ -623,10 +682,8 @@ function rotateMarkDmgZone(range) {
                     container.style.top = (rect.bottom-250) + 'px';
                     container.style.left = (rect.left+30) + 'px';
                     container.style.opacity = 1;
-                    return;
                 }
             });
-            document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`).classList.add('ATKGlow');
             }
             else if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`)){
             document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)-i-1}"][data-tiley="${parseInt(rangeY)}"]`).classList.add('ATKGlow');
@@ -638,20 +695,20 @@ function rotateMarkDmgZone(range) {
         for (arr in range) {
         for (let i = 0; i < range[arr].xRange; i++) {
             if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)-i-1}"]`) && (rangeY-i-1) < rangeY) {
+            document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)-i-1}"]`).classList.add('ATKGlow');
             allPlayers.forEach(player=>{
                 if (document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)-i-1}"]`).contains(player)){
+                    document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)-i-1}"]`).classList.remove('ATKGlow');
+                    document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)-i-1}"]`).classList.add('ATKTarget');
                     seeHP('', player);
                     battle(range.attack.name);
-                    document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)-i-1}"]`).classList.add('ATKTarget');
                     const container = document.querySelector('div#small-hp-container');
                     let rect = player.getBoundingClientRect();
                     container.style.top = (rect.bottom-250) + 'px';
                     container.style.left = (rect.left+30) + 'px';
                     container.style.opacity = 1;
-                    return;
                 }
             });
-            document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)-i-1}"]`).classList.add('ATKGlow');
             }
             else if(document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)+i+1}"]`) && (rangeY-i-1) > rangeY) {
             document.querySelector(`div.tile[data-tilex="${parseInt(rangeX)}"][data-tiley="${parseInt(rangeY)+i+1}"]`).classList.add('ATKGlow');
@@ -689,13 +746,17 @@ function rotateMarkDmgZone(range) {
 }
 // Check action
 function checkAction(event){
-    console.log(currentTurnPlayer);
-    console.log(thisPlayer);
-    if (currentTurnPlayer != thisPlayer) return;
+    if (currentTurnPlayer != thisPlayerIdNew){
+        console.log("Don't touch that, it's not your turn yet");
+        return;
+    }
     const clickTarget = event.target;
-    clickTarget.classList.contains('glow') ? move(event) 
-    : clickTarget.classList.contains('ATKTarget') ? attackPlayer(event) 
-    : console.log('No move possible on this tile');
+    if (clickTarget.classList.contains('glow') && currentTurnPlayer == thisPlayerIdNew){
+        move (event);
+    } else if (clickTarget.classList.contains('ATKTarget') && currentTurnPlayer == thisPlayerIdNew){
+        attackPlayer(event, glob);
+    } 
+    else console.log('No move possible on this tile');
 }
 // Moving
 function checkMoveOptions(turnCharacterCanvas){
@@ -773,50 +834,39 @@ function move(event){
 function attackPlayer(yes, pushName){
     if (yes === 'define') moveName = pushName;
     else {
-        let attacking = document.querySelector('.ATKTarget .sprites');
-        if (getcharacterID(attacking) === turnPlayerId){    
-            switch (moveName) {
-                case 'Riposte':
-                    console.log(moveName);
-                    break;
-                case 2:
-                    // code block
-                    break;
-                case 3:
-                    // code block
-                    break;
-                case 4:
-                    // code block
-                    break;
-                case 5:
-                    // code block
-                    break;
-                default:
-                    // code block
-                    break;
-            }
-        } else {
+        // let attacking = document.querySelector('.ATKTarget .sprites');
+        // console.log(getcharacterID(attacking) );
+        // console.log(turnPlayerId);
+        // if (getcharacterID(attacking) === turnPlayerId){    
+        //     switch (moveName) {
+        //         case 'Riposte':
+        //             console.log(moveName);
+        //             break;
+        //         case 2:
+        //             // code block
+        //             break;
+        //         case 3:
+        //             // code block
+        //             break;
+        //         case 4:
+        //             // code block
+        //             break;
+        //         case 5:
+        //             // code block
+        //             break;
+        //     }
+        // } else {
             battle(moveName, 'ATTACK');
-        }
+        // }
     }
-
-    // if (attacking.classList.contains('ATKTarget')){
-    //     // atk function in PHP
-    //     console.log(characterPlayers[turnCounter]);
-    //     fetchData(`../game-func-pages/calculateBattle.php?attackTargetId=${attacking}&turnCharacterCanvasId=${characterPlayers[turnCounter]}`).then((data) => {
-    //         battleResult = data;
-    //         alert(battleResult);
-    //     });
-    //     hasAttacked = true;
-    //     if (attacking === turnCharacterCanvas.parentElement) hasAttacked = true;
-    //     if (hasMoved === true) removeGlow('atk');
-    // }; 
 }
+let newres;
 function battle(name, action){
     const smallHPbar = document.querySelector('#small-hp-container');
     let defender = document.querySelector('.ATKTarget .sprites');
+    if (turnPlayerId === userID) return;
     if (hasMoved === true){
-        removeGlow();
+        removeGlow("movement");
     };
     // prevent team attack
     if ((characterPlayers[turnCounter] === characterPlayers[0] && getcharacterID(defender) === secondaryCharachters[0]) ||
@@ -884,7 +934,6 @@ function battle(name, action){
         // If character ID 2 attacks character ID 2
         else if ((getcharacterID(defender) === secondaryCharachters[0] || getcharacterID(defender) === secondaryCharachters[1]) && 
         (characterPlayers[turnCounter] === secondaryCharachters[0] || characterPlayers[turnCounter] === secondaryCharachters[1])){
-            console.log(name);
             jQuery.ajax({
                 type: "POST",
                 url: `../game-func-pages/simulateBattle.php?id=${id}&attacker=${characterPlayers[turnCounter]}&defender=${getcharacterID(defender)}&attackingplayer=${turnPlayerId}&defendingplayer=${turnDefenderPlayerId}&DEFcharcount=2&ATKcount=2&atkname=${name}&type=SIM`,
@@ -974,9 +1023,14 @@ function battle(name, action){
         }
         removeGlow('atk');
         smallHPbar.style.opacity=0;
+        document.body.classList.add('screenshake');
+        setTimeout(()=>{
+            document.body.classList.remove('screenshake');
+        },1000);
     }
     setTimeout(function() {
         if (newres){
+            hasAttacked = true;
             let bar = document.getElementById('hp-bar-filler');
             let dmgBar = document.getElementById('hp-bar-filler-damage');
             
@@ -996,6 +1050,7 @@ function battle(name, action){
                 bar.style.width = 0 +'%';
                 dmgBar.style.width = calcwidth + '%';
             }
+            // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         }
     }, 200);
 }
@@ -1050,6 +1105,10 @@ function removeGlow(test){
                 tile.classList.remove('ATKGlow');
             }
         });
+    } else if (test = "movement"){
+        tiles.forEach(tile => {
+            tile.classList.remove('glow');
+        });
     }
 }
 function getTitles (request, jsonobj, moveNmbr){
@@ -1060,13 +1119,14 @@ function getTitles (request, jsonobj, moveNmbr){
             case 2:
                 return jsonobj.atks_title_lilith[moveNmbr].lilith_moves_title;
             case 3:
-                return jsonobj.atks_title_kite[moveNmbr].kite_moves_title;
+                return jsonobj.atks_title_ruby[moveNmbr].ruby_moves_title;
             case 4:
                 return jsonobj.atks_title_kitt[moveNmbr].kitt_moves_title;
             case 5:
                 return jsonobj.atks_title_paige[moveNmbr].paige_moves_title;
             case 6:
-                return jsonobj.atks_title_ruby[moveNmbr].ruby_moves_title;
+                return jsonobj.atks_title_kite[moveNmbr].kite_moves_title;
+
         }
     } else if (request == 'desc'){
         switch (characterPlayers[turnCounter]) {
@@ -1075,13 +1135,14 @@ function getTitles (request, jsonobj, moveNmbr){
             case 2:
                 return jsonobj.atks_desc_lilith[moveNmbr].lilith_moves_desc;
             case 3:
-                return jsonobj.atks_desc_kite[moveNmbr].kite_moves_desc;
+                return jsonobj.atks_desc_ruby[moveNmbr].ruby_moves_desc;
             case 4:
                 return jsonobj.atks_desc_kitt[moveNmbr].kitt_moves_desc;
             case 5:
                 return jsonobj.atks_desc_paige[moveNmbr].paige_moves_desc;
             case 6:
-                return jsonobj.atks_desc_ruby[moveNmbr].ruby_moves_desc;
+                return jsonobj.atks_desc_kite[moveNmbr].kite_moves_desc;
+
         }
     }
 }
