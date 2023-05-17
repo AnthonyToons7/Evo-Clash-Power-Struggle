@@ -138,8 +138,7 @@ function heartBeat(){
                     )
                 }
             }
-        }); // Add this closing brace to end the promise.
-        
+        });
 
         loadOverlay.style.display="none";
         fetchData(`../game-func-pages/heartbeat.php?id=${id}&request=GETTURN`).then((data) => {
@@ -158,6 +157,14 @@ function heartBeat(){
                     turnReset('TIMEFORWARD');
                 }
             }
+        });
+        fetchData(`../game-func-pages/heartbeat.php?id=${id}&request=CORRECTPOSITIONS&play1char1=${characterPlayers[0]}&play1char2=${characterPlayers[2]}&play2char1=${characterPlayers[1]}&play2char2=${characterPlayers[3]}`).then((data) => {
+            console.log(data);
+
+            let positionX = turnCharacterCanvas.parentElement.dataset.tilex;
+            let positionY = turnCharacterCanvas.parentElement.dataset.tiley;
+            
+            // data moet vergeleken worden met de momentele gamestate
         });
 
         if (!characterPlayers[1] && !characterPlayers[3]){
