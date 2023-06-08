@@ -1,4 +1,5 @@
 <?php
+include '../ww.php';
 session_start();
 if ($_SESSION["USERS_ID"] != true){
     header("Location:../../login.php");
@@ -11,7 +12,7 @@ if ($_SESSION["USERS_ID"] != true){
   if(isset($_GET["error"])){
       $err = $_GET["error"];
   }
-  $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+  $mysqli = new mysqli($one, $two, $three, $four);
   $qry = "SELECT USER_NICKNAME, USER_EMAIL FROM users WHERE USERS_ID = ?";
   $mysqli_stmt = $mysqli->prepare($qry);
   $mysqli_stmt -> bind_param("i", $_SESSION['USERS_ID']);

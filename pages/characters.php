@@ -1,4 +1,5 @@
 <?php
+    include '../ww.php';
     session_start();
     if (!isset($_SESSION["USERS_ID"]) || !$_SESSION["USERS_ID"]){
         header("Location:../../login.php");
@@ -12,7 +13,7 @@
 		$err = $_GET["error"];
 	}
 
-    $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+    $mysqli = new mysqli($one, $two, $three, $four);
     $qry = "SELECT CHARACTER_NAME FROM characters";
     $result = $mysqli_stmt = $mysqli->query($qry);
     $i = 1;

@@ -1,4 +1,5 @@
 <?php
+include '../ww.php';
 session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -11,8 +12,8 @@ $id = $_GET['id'];
 $charid = $_GET['characterid'];
 $ui = $_GET['userid'];
 $nmbr = $_GET['nmbr']; 
+$mysqli = new mysqli($one, $two, $three, $four);
 if ($nmbr == 1){
-    $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
     $qry = "SELECT CHARACTER_HP FROM character_positions WHERE ACTIVE_GAME_ID = ? AND CHARACTER_ID_1 = ? AND ACTIVE_USER_ID=?;";
     $mysqli_stmt = $mysqli->prepare($qry);
     $mysqli_stmt->bind_param('iii', $id, $charid, $ui);
@@ -20,7 +21,6 @@ if ($nmbr == 1){
     $result = $mysqli_stmt->get_result();
     $row = $result->fetch_assoc();
 } else if ($nmbr == 2){
-    $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
     $qry = "SELECT CHARACTER_HP FROM character_positions WHERE ACTIVE_GAME_ID = ? AND CHARACTER_ID_2 = ? AND ACTIVE_USER_ID=?;";
     $mysqli_stmt = $mysqli->prepare($qry);
     $mysqli_stmt->bind_param('iii', $id, $charid, $ui);

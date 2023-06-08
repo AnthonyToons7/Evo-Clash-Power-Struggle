@@ -1,4 +1,5 @@
 <?php
+include '../ww.php';
 session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -7,7 +8,7 @@ $content = "";
 if(isset($_GET["error"])){
     $err = $_GET["error"];
 }
-    $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+    $mysqli = new mysqli($one, $two, $three, $four);
     // $qry = "SELECT ATTACK_MOVES_NAME FROM attack_moves WHERE ATTACK_MOVE_ID = ?;";
     $qry = "SELECT am.ATTACK_MOVES_NAME, am.ATTACK_MOVE_RANGE_X, am.ATTACK_MOVE_RANGE_Y
     FROM attack_moves AS am

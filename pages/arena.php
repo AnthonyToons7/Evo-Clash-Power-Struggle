@@ -1,4 +1,5 @@
 <?php 
+    include '../ww.php';
     session_start();
     if (!isset($_SESSION["USERS_ID"]) || !$_SESSION["USERS_ID"]){
         header("Location:../../login.php");
@@ -11,7 +12,7 @@
 	if(isset($_GET["error"])){
 		$err = $_GET["error"];
 	}
-    $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+    $mysqli = new mysqli($one, $two, $three, $four);
     $qry = "SELECT USER_NICKNAME, USER_VICTORIES FROM users ORDER BY USER_VICTORIES DESC";
     $result = $mysqli_stmt = $mysqli->query($qry);
     $i = 1;
@@ -98,7 +99,7 @@
                 </div>
                 <div class="double-room-border-overlay">
                     <div class="room-border-overlay border-overlay">
-                        <a href="game.html">
+                        <a href="game">
                             <div id="join-room-box" class="room-menu-boxes">
                                 <p class="menu-text-box">Join room</p>
                             </div>

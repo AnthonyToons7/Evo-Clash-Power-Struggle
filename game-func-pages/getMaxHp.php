@@ -1,4 +1,5 @@
 <?php
+include '../ww.php';
 session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -8,7 +9,7 @@ if(isset($_GET["error"])){
     $err = $_GET["error"];
 }
 $charid = $_GET['characterid'];
-$mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+$mysqli = new mysqli($one, $two, $three, $four);
 $qry = "SELECT CHARACTER_HP FROM characters WHERE CHARACTERS_ID = ?;";
 $mysqli_stmt = $mysqli->prepare($qry);
 $mysqli_stmt->bind_param('i', $charid);

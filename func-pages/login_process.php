@@ -1,11 +1,11 @@
 <?php
+include '../ww.php';
 session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 if (isset($_POST["submit"])) {
-    $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
-    // $mysqli = new mysqli("localhost", "root", "root", "rpg_full");
+    $mysqli = new mysqli($one, $two, $three, $four);
     $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];

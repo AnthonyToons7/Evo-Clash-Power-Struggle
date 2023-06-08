@@ -1,4 +1,5 @@
 <?php
+include '../ww.php';
 session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -8,7 +9,7 @@ if(isset($_GET["error"])){
     $err = $_GET["error"];
 }
 $id = $_SESSION["USERS_ID"];
-$mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+$mysqli = new mysqli($one, $two, $three, $four);
 $qry = "INSERT INTO active_games (PLAYER_1_USER_ID) VALUES (?);";
 $mysqli_stmt = $mysqli->prepare($qry);
 $mysqli_stmt->bind_param('i', $id);
@@ -53,7 +54,7 @@ $row = $result->fetch_assoc();
     </style>
 </head>
 <body>
-    <input type="text" name="" id="link" value="<?= "http://localhost/pages/character-selection.php?id=" . $row['ACTIVE_GAMES_ID']?>">
+    <input type="text" name="" id="link" value="<?= "https://anthonytoons.nl/rpg_evo_clash/pages/character-selection.php?id=" . $row['ACTIVE_GAMES_ID']?>">
     <button onclick="copyLink()">Copy link</button>
 </body>
 </html>

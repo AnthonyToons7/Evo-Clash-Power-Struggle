@@ -1,5 +1,6 @@
 <?php
-  $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+    include '../ww.php';
+    $mysqli = new mysqli($one, $two, $three, $four);
   $qry = "SELECT UPDATE_TITLE FROM updates";
   $mysqli_stmt = $mysqli->prepare($qry);
   $mysqli_stmt->execute();

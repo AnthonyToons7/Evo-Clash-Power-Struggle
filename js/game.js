@@ -1,28 +1,3 @@
-// function ajaxtest(id){
-//     jQuery.ajax(
-//         {
-//             type: "GET",
-//             url: "getData.php?id="+id,
-//             async: false,
-//             success: function(text) {
-//                 response = text;
-//                 alert(response);
-//             }
-//         }
-//     )
-// }
-// function xhttptest(str) {
-//     if (str == "") {
-//       document.getElementById("description-title").innerHTML = "";
-//       return;
-//     }
-//     const xhttpReq = new XMLHttpRequest();
-//     xhttpReq.onload = function() {
-//       document.getElementById("description-title").innerHTML = this.responseText;
-//     }
-//     xhttpReq.open("GET", "getData.php?id="+str);
-//     xhttpReq.send();
-// }
 
 // Pre game prep
 const playerCharacters =['player-1-char-1-sprite', 'player-2-char-1-sprite', 'player-1-char-2-sprite', 'player-2-char-2-sprite'];
@@ -120,7 +95,7 @@ function heartBeat(){
                             method: 'GET',
                             
                             success: function (result){
-                                window.location.href = "http://localhost/pages/startmenu.php";
+                                window.location.href = "https://anthonytoons.nl/rpg_evo_clash/pages/startmenu.php";
                             } 
                         }
                     )
@@ -132,13 +107,14 @@ function heartBeat(){
                             method: 'GET',
                             
                             success: function (result){
-                                window.location.href = "http://localhost/pages/startmenu.php";
+                                window.location.href = "https://anthonytoons.nl/rpg_evo_clash/pages/startmenu.php";
                             } 
                         }
                     )
                 }
             }
-        });
+        }); // Add this closing brace to end the promise.
+        
 
         loadOverlay.style.display="none";
         fetchData(`../game-func-pages/heartbeat.php?id=${id}&request=GETTURN`).then((data) => {
@@ -157,14 +133,6 @@ function heartBeat(){
                     turnReset('TIMEFORWARD');
                 }
             }
-        });
-        fetchData(`../game-func-pages/heartbeat.php?id=${id}&request=CORRECTPOSITIONS&play1char1=${characterPlayers[0]}&play1char2=${characterPlayers[2]}&play2char1=${characterPlayers[1]}&play2char2=${characterPlayers[3]}`).then((data) => {
-            console.log(data);
-
-            let positionX = turnCharacterCanvas.parentElement.dataset.tilex;
-            let positionY = turnCharacterCanvas.parentElement.dataset.tiley;
-            
-            // data moet vergeleken worden met de momentele gamestate
         });
 
         if (!characterPlayers[1] && !characterPlayers[3]){
@@ -296,12 +264,7 @@ function setCharacters(data){
           setIcons(characterId);
       
           if (characterPlayers.length === 4) {
-            // let switcheroo = data["player1"][1][1];
-    
-            // data["player1"][1][1] = data["player2"][0][1];
-            // data["player2"][0][1] = switcheroo;
             let switcheroo = characterPlayers[1];
-    
             characterPlayers[1] = characterPlayers[2];
             characterPlayers[2] = switcheroo;
           }
@@ -332,14 +295,6 @@ function getValues(id, characterIDs) {
             'body':'',
         }).then((character_data) => {
             let stats = character_data;
-            let statsCharacter1 = stats[0]
-            let statsCharacter2 = stats[1]
-            let statsCharacter3 = stats[2]
-            let statsCharacter4 = stats[3]
-            // console.log(statsCharacter1);
-            // console.log(statsCharacter2);
-            // console.log(statsCharacter3);
-            // console.log(statsCharacter4);
             heartBeat(id, stats);
         });
 
@@ -460,8 +415,6 @@ window.addEventListener("DOMContentLoaded", ()=>{
                 hoverUp(2);
                 break;
             case '4':
-                // console.log("You're not ready to evolve...");
-                // hoverUp(4);
                 break;
             case '5':
                 hoverUp(4);
@@ -670,7 +623,6 @@ function rotateMarkDmgZone(range) {
         }
         }
         break;
-
     case 2: // Left direction
         for (arr in range) {
         for (let i = 0; i < range[arr].xRange; i++) {
@@ -768,8 +720,6 @@ function checkAction(event){
 // Moving
 function checkMoveOptions(turnCharacterCanvas){
     removeGlow();
-    // let positionX = turnCharacterCanvas[turnCounter].parentElement.dataset.tilex;
-    // let positionY = turnCharacterCanvas[turnCounter].parentElement.dataset.tiley;
     let positionX = turnCharacterCanvas.parentElement.dataset.tilex;
     let positionY = turnCharacterCanvas.parentElement.dataset.tiley;
     const options = [
@@ -811,12 +761,8 @@ function move(event){
                 console.log("Status: " + status);
                 console.log("Response: " + xhr.responseText);
             },
-            dataType: "text" // Set dataType to "text"
+            dataType: "text" // Set dataType to "text";
         });
-
-        // fetchData(`../game-func-pages/pushMovement.php?id=${id}&character=${characterPlayers[turnCounter]}&x=${posX}&y=${posY}&player=${turnPlayerId}&charcount=2`).then(() => {
-        //     console.log('positions updated');
-        // });
     } else {
         jQuery.ajax({
             type: "POST",
@@ -831,9 +777,6 @@ function move(event){
             },
             dataType: "text" // Set dataType to "text"
         });
-        // fetchData(`../game-func-pages/pushMovement.php?id=${id}&character=${characterPlayers[turnCounter]}&x=${posX}&y=${posY}&player=${turnPlayerId}&charcount=1`).then((data) => {
-        //     console.log('positions updated');
-        // });
     }
 };
 
@@ -841,30 +784,7 @@ function move(event){
 function attackPlayer(yes, pushName){
     if (yes === 'define') moveName = pushName;
     else {
-        // let attacking = document.querySelector('.ATKTarget .sprites');
-        // console.log(getcharacterID(attacking) );
-        // console.log(turnPlayerId);
-        // if (getcharacterID(attacking) === turnPlayerId){    
-        //     switch (moveName) {
-        //         case 'Riposte':
-        //             console.log(moveName);
-        //             break;
-        //         case 2:
-        //             // code block
-        //             break;
-        //         case 3:
-        //             // code block
-        //             break;
-        //         case 4:
-        //             // code block
-        //             break;
-        //         case 5:
-        //             // code block
-        //             break;
-        //     }
-        // } else {
-            battle(moveName, 'ATTACK');
-        // }
+        battle(moveName, 'ATTACK');
     }
 }
 let newres;

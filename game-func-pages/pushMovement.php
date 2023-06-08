@@ -1,4 +1,5 @@
 <?php
+include '../ww.php';
 session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -13,7 +14,7 @@ $x = $_GET['x'];
 $y = $_GET['y'];
 $player = $_GET['player'];
 $count = $_GET['charcount'];
-$mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+$mysqli = new mysqli($one, $two, $three, $four);
 if ($count == 1){
     $qry = "UPDATE character_positions SET X_VALUE = ?, Y_VALUE = ? WHERE ACTIVE_GAME_ID = ? AND ACTIVE_USER_ID = ? AND CHARACTER_ID_1 = ?;";
     $mysqli_stmt = $mysqli->prepare($qry);

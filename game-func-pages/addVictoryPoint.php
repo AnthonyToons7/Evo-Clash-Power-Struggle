@@ -1,9 +1,10 @@
 <?php
+include '../ww.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $user = $_GET["player"];
-$mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+$mysqli = new mysqli($one, $two, $three, $four);
 
 $qry = "SELECT USER_VICTORIES FROM users WHERE USERS_ID = ?";
 $mysqli_stmt = $mysqli->prepare($qry);
@@ -23,5 +24,5 @@ $arr = [
     "asd"=>"asd"
 ];
 
-header("Location: http://localhost/pages/battlefield.php?id=" . $roomID);
+header("Location: https://anthonytoons.nl/rpg_evo_clash/pages/battlefield.php?id=" . $roomID);
 // echo json_encode($arr);

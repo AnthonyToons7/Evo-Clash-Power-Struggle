@@ -1,4 +1,5 @@
 <?php
+include '../ww.php';
 session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -17,8 +18,7 @@ $defendingplayer = $_GET['defendingplayer'];
 $DEFcount = $_GET['DEFcharcount']; 
 $ATKcount = $_GET['ATKcount']; 
 $type = $_GET['type'];
-
-$mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+$mysqli = new mysqli($one, $two, $three, $four);
 if ($ATKcount == 1){
     // get stats attacker
     $qry = "SELECT CHARACTER_HP, CHARACTER_ATK, CHARACTER_DEF FROM character_positions WHERE ACTIVE_GAME_ID = ? AND ACTIVE_USER_ID = ? AND CHARACTER_ID_1 = ?;";

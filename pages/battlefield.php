@@ -1,4 +1,5 @@
 <?php 
+include '../ww.php';
 session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -10,18 +11,7 @@ $content = "";
 if(isset($_GET["error"])){
     $err = $_GET["error"];
 }
-
-    // $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
-    // $qry = "SELECT * FROM active_games WHERE PLAYER_1_USER_ID = ?;";
-    // $mysqli_stmt = $mysqli->prepare($qry);
-    // $mysqli_stmt->bind_param('i', $_SESSION["USERS_ID"]);
-    // $mysqli_stmt->execute();
-    // $result = $mysqli_stmt->get_result();
-    // if($result->num_rows === 0){
-    //     header("Location: http://localhost/pages/startmenu.php");
-    // }
-
-    $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+    $mysqli = new mysqli($one, $two, $three, $four);
     $qry = "SELECT * FROM active_games WHERE ACTIVE_GAMES_ID = ?;";
     $mysqli_stmt = $mysqli->prepare($qry);
     $mysqli_stmt->bind_param('i', $_GET["id"]);
@@ -30,7 +20,7 @@ if(isset($_GET["error"])){
     $row = $result->fetch_assoc();
     if($result->num_rows === 0){
         die();
-        header("Location: http://localhost/pages/startmenu.php");
+        header("Location: https://anthonytoons.nl/rpg_evo_clash/pages/startmenu.php");
     }    
 ?>
 <!DOCTYPE html>

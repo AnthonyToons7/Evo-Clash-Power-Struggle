@@ -1,4 +1,5 @@
 <?php
+include '../ww.php';
 session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -12,7 +13,7 @@ $playerID = $_SESSION["USERS_ID"];
 $character1 = $_POST['characterCheckbox'][0];
 $character2 = $_POST['characterCheckbox'][1];
 
-$mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+$mysqli = new mysqli($one, $two, $three, $four);
 $qry = "SELECT * FROM active_games WHERE ACTIVE_GAMES_ID=? OR PLAYER_1_USER_ID= ?;";
 $mysqli_stmt = $mysqli->prepare($qry);
 $mysqli_stmt->bind_param('ii', $roomID, $playerID);
@@ -118,7 +119,7 @@ if ($playerID===$row['PLAYER_1_USER_ID']) {
 
 
     
-    header("Location: http://localhost/pages/battlefield.php?id=" . $roomID);
+    header("Location: https://anthonytoons.nl/rpg_evo_clash/pages/battlefield.php?id=" . $roomID);
 
 
 

@@ -1,4 +1,5 @@
 <?php
+include '../ww.php';
 session_start();
 if ($_SESSION["USERS_ID"] != true){
     header("Location:../../login.php");
@@ -14,7 +15,7 @@ if ($_SESSION["USERS_ID"] != true){
   $newNickname = $_POST['new-username'];
   $newEmail = $_POST['new-email'];
   $newPassword = $_POST['new-password'];
-  $mysqli = new mysqli("localhost", "root", "root", "rpg_full", "3306");
+  $mysqli = new mysqli($one, $two, $three, $four);
   $qry = "UPDATE users SET USER_NICKNAME = ?, USER_EMAIL = ?, USERS_PASSWORD = ? WHERE USERS_ID = ?";
   $mysqli_stmt = $mysqli->prepare($qry);
   $mysqli_stmt -> bind_param("sssi", $newNickname, $newEmail, $newPassword, $_SESSION['USERS_ID']);
