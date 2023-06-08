@@ -65,10 +65,10 @@ function getCharacterData(index, version) {
     const bg = [
         "url(../img/evolve-marks/void-mark.png)",
         "url(../img/evolve-marks/lilith-mark.png)",
-        "url(../img/evolve-marks/kite-mark.png)",
+        "url(../img/evolve-marks/ruby-mark.png)",
         "url(../img/evolve-marks/kitt-mark.png)",
         "url(../img/evolve-marks/paige-mark.png)",
-        "url(../img/evolve-marks/ruby-mark.png)"
+        "url(../img/evolve-marks/kite-mark.png)"
     ];
     const renders = [
         
@@ -83,11 +83,10 @@ function getCharacterData(index, version) {
             y = posY[index];
         switch (index) {
             case 1:
-                // render.src = "../img/character-renders/lilith-render.png";
                 changeTxt[i].innerHTML = json.lilith[i].lilith_info;
                 break;
             case 2:
-                changeTxt[i].innerHTML = json.kite[i].kite_info;
+                changeTxt[i].innerHTML = json.ruby[i].ruby_info;
                 break;
             case 3:
                 changeTxt[i].innerHTML = json.kitt[i].kitt_info;
@@ -96,7 +95,7 @@ function getCharacterData(index, version) {
                 changeTxt[i].innerHTML = json.paige[i].paige_info;
                 break;
             case 5:
-                changeTxt[i].innerHTML = json.ruby[i].ruby_info;
+                changeTxt[i].innerHTML = json.kite[i].kite_info;
                 break;
             default:
                 changeTxt[i].innerHTML = json.void[i].void_info;

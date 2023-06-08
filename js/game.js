@@ -192,6 +192,7 @@ document.querySelector('div#moves-4 div').innerHTML = "Pass";
     });
     advanceTurn();
     checkMoveOptions(turnCharacterCanvas);
+    window.location.reload();
 }
 
 // Fetch call
@@ -212,12 +213,6 @@ function getCharacters(id){
         getValues(id, data);
         setCharacters(data);
     });
-    // fetch("getData.php?id="+id)
-    //   .then((response) => {
-    //    let characterData = response.json();
-    //    let player1 = characterData['player1'];
-    //    console.dir(characterData);
-    //   });
 }
 // Set the characters and their spritesheets
 function setCharacters(data){

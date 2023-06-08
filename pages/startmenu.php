@@ -86,15 +86,6 @@ $mysqli->close();
                     </a>
                 </div>
             </div>
-            <div class="double-border-overlay">
-                <div class="border-overlay">
-                    <a href="IkWilGeldGEEFMIJGELD.php">
-                        <div id="support-box" class="menu-boxes">
-                            <p class="menu-text-box">Support &hearts;</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
         </div>
         <?= $content ?>
     </main>

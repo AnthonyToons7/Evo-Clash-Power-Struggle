@@ -1,6 +1,3 @@
-<?php
-header("Location: https://anthonytoons.nl/index");
-?>
 <!doctype html>
 <html lang="nl">
 <head>
