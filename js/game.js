@@ -192,7 +192,7 @@ document.querySelector('div#moves-4 div').innerHTML = "Pass";
     });
     advanceTurn();
     checkMoveOptions(turnCharacterCanvas);
-    window.location.reload();
+    // window.location.reload();
 }
 
 // Fetch call
